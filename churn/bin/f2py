@@ -1,4 +1,4 @@
-#!/Users/pauwel/Documents/GitHub/Crunch_Prediction/crunch/bin/python3
+#!/Users/pauwel/Documents/GitHub/Churn_Prediction/churn/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
