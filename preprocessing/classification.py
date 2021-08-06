@@ -7,16 +7,16 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import recall_score
 
 # import dataframe
-crunch = pd.read_csv("assets/BankChurners.csv")
+churn = pd.read_csv("assets/BankChurners.csv")
 
 # data cleaning
 # drop columns that are not necessary or don't add value
-crunch = crunch[crunch.columns[:-2]]
-crunch = crunch.drop("CLIENTNUM", axis = 1)
+churn = churn[churn.columns[:-2]]
+churn = churn.drop("CLIENTNUM", axis = 1)
 
 # determine target and features
-y = crunch["Attrition_Flag"].to_numpy()
-X = crunch.drop("Attrition_Flag", axis = 1)
+y = churn["Attrition_Flag"].to_numpy()
+X = churn.drop("Attrition_Flag", axis = 1)
 
 # change target values into numericals
 y[y == 'Existing Customer'] = 1
