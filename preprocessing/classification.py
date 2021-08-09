@@ -4,14 +4,28 @@ from imblearn.over_sampling import SMOTE
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier, AdaBoostClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import recall_score
-from assets.datacleaner import dataCleaner
+from datacleaner import dataCleaner
 
 churn = pd.read_csv("assets/BankChurners.csv")
 churn = dataCleaner(churn)
 
 # determine target and features
-y = churn["Attrition_Flag"].to_numpy()
+y = churn["Attrition_Flag"]
 X = churn.drop("Attrition_Flag", axis = 1)
+
+# change target values into numericals
+y[y == 'Existing Customer'] = 1
+y[y == "Attrited Customer"] = 2
+y = y.astype(int)
+
+# create dummies of categorical features
+# (all are object values -> select_dtypes)
+cat_columns = X.select_dtypes(['object'])
+
+for item in cat_columns:
+    dummies = pd.get_dummies(X[item], columns = cat_columns.columns, prefix = item)
+    X = pd.concat([X, dummies], axis = 1)
+    del X[item]
 
 # create train and test set (random_state = 42, because it is used for official examples)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 42)
