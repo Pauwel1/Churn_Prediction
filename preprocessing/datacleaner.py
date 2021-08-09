@@ -8,8 +8,8 @@ def dataCleaner(df):
     df = df[df.columns[:-2]]
     df = df.drop("CLIENTNUM", axis = 1)
 
-    # check NaN values
-    print(df[df.isnull()].count())
+    # # check NaN values
+    # print(df[df.isnull()].count())
 
     # determine target and features
     y = df["Attrition_Flag"].to_numpy()
