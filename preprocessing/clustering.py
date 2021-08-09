@@ -7,15 +7,16 @@ import matplotlib.pyplot as plt
 churn = pd.read_csv("assets/BankChurners.csv")
 X, y = dataCleaner(churn)
 
-def affinityPropagator(X, y):
-    # define the model
-    model = AffinityPropagation(damping=0.9, random_state = None)
-    # fit the model
-    model.fit(X, y)
+def affinityPropagator(X):
+    # define and fit the model
+    model = AffinityPropagation(max_iter = 250, damping=0.9, random_state = None).fit(X)
+    cluster_centers_indices = model.cluster_centers_indices_
+    n_clusters_ = len(cluster_centers_indices)
     # assign a cluster to each example
     yhat = model.predict(X)
     # retrieve unique clusters
     clusters = unique(yhat)
+
     # create scatter plot for samples from each cluster
     for cluster in clusters:
         # get row indexes for samples with this cluster
@@ -23,8 +24,11 @@ def affinityPropagator(X, y):
         # create scatter of these samples
         plt.scatter(X[row_ix, 0], X[row_ix, 1])
     # show the plot
+    plt.title(f'Estimated number of clusters = {n_clusters_}')
     plt.legend()
     plt.show()
+
+aff = affinityPropagator(X)
 
 # def agglomerativeClusterer(X, y):
 #     # define the model
