@@ -33,6 +33,4 @@ def kmClusterer(X):
     clusters = km.fit_predict(X)
     X["label"] = clusters
 
-
-
-clusterer(X)
+kmClusterer(X)
