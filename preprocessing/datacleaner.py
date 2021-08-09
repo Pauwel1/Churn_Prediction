@@ -11,8 +11,8 @@ def dataCleaner(df):
 
     # check NaN values
     print(df[df.isnull()].count())
-    
-    print(df.dtypes())
+
+    return df
 
 def visualizer(df):
     # plot heatmap

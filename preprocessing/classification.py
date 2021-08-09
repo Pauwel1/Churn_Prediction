@@ -10,7 +10,7 @@ churn = pd.read_csv("assets/BankChurners.csv")
 churn = dataCleaner(churn)
 
 # determine target and features
-y = churn["Attrition_Flag"]
+y = churn["Attrition_Flag"].to_numpy()
 X = churn.drop("Attrition_Flag", axis = 1)
 
 # change target values into numericals
