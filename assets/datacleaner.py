@@ -5,7 +5,7 @@ import seaborn as sns
 
 def dataCleaner(df):
     # data cleaning
-    #check NaN values
+    # check NaN values
     print(df[df.isnull()].count())
 
     # determine target and features
