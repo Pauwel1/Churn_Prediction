@@ -8,10 +8,6 @@ def dataCleaner(df):
     #check NaN values
     print(df[df.isnull()].count())
 
-    # drop columns that are not necessary or don't add value
-    df = df[df.columns[:-2]]
-    df = df.drop("CLIENTNUM", axis = 1)
-
     # determine target and features
     y = df["Attrition_Flag"].to_numpy()
     X = df.drop("Attrition_Flag", axis = 1)
@@ -20,6 +16,10 @@ def dataCleaner(df):
     y[y == 'Existing Customer'] = 1
     y[y == "Attrited Customer"] = 2
     y = y.astype(int)
+
+    # drop columns that are not necessary or don't add value
+    df = df[df.columns[:-2]]
+    df = df.drop("CLIENTNUM", axis = 1)
 
     # create dummies of categorical features
     # (all are object values -> select_dtypes)

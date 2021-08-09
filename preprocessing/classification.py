@@ -9,6 +9,10 @@ from assets.datacleaner import dataCleaner
 churn = pd.read_csv("assets/BankChurners.csv")
 churn = dataCleaner(churn)
 
+# determine target and features
+y = churn["Attrition_Flag"].to_numpy()
+X = churn.drop("Attrition_Flag", axis = 1)
+
 # create train and test set (random_state = 42, because it is used for official examples)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 42)
 
