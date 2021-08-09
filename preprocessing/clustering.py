@@ -3,7 +3,7 @@ import numpy as np
 from datacleaner import dataCleaner
 from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
+from imblearn.over_sampling import SMOTE
 
 churn = pd.read_csv("assets/BankChurners.csv")
 X, y = dataCleaner(churn)
@@ -22,15 +22,15 @@ def kmClusterer(X):
     # that number of clusters is desirable
     plt.figure(figsize=(12,6))    
     plt.grid()
-    plt.plot(range(1,11),wcss, linewidth=2, color="red", marker ="8")
+    plt.plot(range(1,11), wcss, linewidth = 2, color = "red", marker = "8")
     plt.xlabel("K Value")
     plt.xticks(np.arange(1,11,1))
     plt.ylabel("WCSS")
     plt.savefig("assets/elbow_method.png")
     plt.clf()
 
-    km = KMeans(n_clusters = 2)
-    clusters = km.fit_predict(X)
-    X["label"] = clusters
+    km = KMeans(n_clusters = 10).fit(X)
+    score = km.score(X)
+    print("score: ", score)
 
 kmClusterer(X)
