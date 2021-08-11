@@ -12,27 +12,23 @@ class Cleaner:
         self.df = self.df[self.df.columns[:-2]]
         self.df = self.df.drop("CLIENTNUM", axis = 1)
 
-        # # check NaN values
-        # print(df[df.isnull()].count())
-
-        # determine target and features
-        y = self.df["Attrition_Flag"].to_numpy()
-        X = self.df.drop("Attrition_Flag", axis = 1)
+        # check NaN values
+        print(self.df[self.df.isnull()].count())
 
         # change target values into numericals
-        y[y == 'Existing Customer'] = 1
-        y[y == "Attrited Customer"] = 2
-        y = y.astype(int)
+        self.df[self.df["Attrition_Flag"] == 'Existing Customer'] = 1
+        self.df[self.df["Attrition_Flag"] == "Attrited Customer"] = 2
+        self.df["Attrition_Flag"] = self.df["Attrition_Flag"].astype(int)
 
         # create dummies of categorical features
         # (all are object values -> select_dtypes)
-        cat_columns = X.select_dtypes(['object'])
+        cat_columns = self.df.select_dtypes(['object'])
 
         for item in cat_columns:
-            dummies = pd.get_dummies(X[item], columns = cat_columns.columns, prefix = item)
-            X = pd.concat([X, dummies], axis = 1)
-            del X[item]
-
+            dummies = pd.get_dummies(self.df[item], columns = cat_columns.columns, prefix = item)
+            self.df = pd.concat([self.df, dummies], axis = 1)
+            del self.df[item]
+        
         return self.df
 
     # def visualize(self):
