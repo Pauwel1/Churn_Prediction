@@ -14,28 +14,28 @@ class Predictor:
 
     def train(self):
         X_train, X_test, y_train, y_test = self.prepare()
-        print(y_train.dtype)
+        print(y_train)
 
         results = pd.DataFrame()
         
         decisionTree = DecisionTreeClassifier.fit(X_train, y_train)
-        dtc = decisionTree.predict(X_train)
-        dtAcc = recall_score(y_train, dtc, pos_label = 2)
+        dtc = decisionTree.predict(X_test)
+        dtAcc = recall_score(y_test, dtc, pos_label = 2)
         results.loc["Decision Tree"] = dtAcc
 
         randomForest = RandomForestClassifier.fit(X_train, y_train)
-        rfc = randomForest.predict(X_train)
-        rfAcc = recall_score(y_train, rfc, pos_label = 2)
+        rfc = randomForest.predict(X_test)
+        rfAcc = recall_score(y_test, rfc, pos_label = 2)
         results.loc["Random Forest"] = rfAcc
 
         gradientBoost = GradientBoostingClassifier.fit(X_train, y_train)
-        gbc = gradientBoost.predict(X_train)
-        gbAcc = recall_score(y_train, gbc, pos_label = 2)
+        gbc = gradientBoost.predict(X_test)
+        gbAcc = recall_score(y_test, gbc, pos_label = 2)
         results.loc["Gradient Boost"] = gbAcc
 
         adaBoost = AdaBoostClassifier.fit(X_train, y_train)
-        abc = adaBoost.predict(X_train)
-        abAcc = recall_score(y_train, abc, pos_label = 2)
+        abc = adaBoost.predict(X_test)
+        abAcc = recall_score(y_test, abc, pos_label = 2)
         results.loc["ADA Boost"] = abAcc
 
         print(results)
