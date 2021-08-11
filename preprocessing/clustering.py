@@ -1,16 +1,15 @@
 import pandas as pd
 import numpy as np
-from datacleaner import dataCleaner
+from preprocessing.datacleaner import dataCleaner
 from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
-from imblearn.over_sampling import SMOTE
 
 churn = pd.read_csv("assets/BankChurners.csv")
 X, y = dataCleaner(churn)
 print(X.columns)
 
 def kmClusterer(X):
-    # Check out how many clusters are desirable
+    # Check how many clusters are desirable
     # WCSS = "Within Cluster Sum of Squares"
     # k = number of clusters
     wcss = []
@@ -29,7 +28,7 @@ def kmClusterer(X):
     plt.savefig("assets/elbow_method.png")
     plt.clf()
 
-    km = KMeans(n_clusters = 10).fit(X)
+    km = KMeans(n_clusters = 2, init = "k-means++", n_init = 10, algorithm = "elkan").fit(X)
     score = km.score(X)
     print("score: ", score)
 
