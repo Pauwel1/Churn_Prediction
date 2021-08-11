@@ -4,12 +4,12 @@ from imblearn.over_sampling import SMOTE
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier, AdaBoostClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import recall_score
-from preprocessing.datacleaner import dataCleaner
+from preprocessing.datacleaner import Cleaner
 from explainerdashboard import ClassifierExplainer, ExplainerDashboard
 
 def classifier(classifier, mdl):
   churn = pd.read_csv("assets/BankChurners.csv")
-  X, y = dataCleaner(churn)
+  X, y = Cleaner(churn)
 
   # create train and test set (random_state = 42, because it is used for official examples)
   X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 42)

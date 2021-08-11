@@ -2,22 +2,22 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-class Processor:
+class Cleaner:
     def __init__(self):
-        self.df = pd.read_csv("assets/BanckChurners.csv")
+        self.df = pd.read_csv("assets/BankChurners.csv")
 
     def dataCleaner(self):
         # data cleaning
         # drop columns that are not necessary or don't add value
-        df = self.df[self.df.columns[:-2]]
-        df = self.df.drop("CLIENTNUM", axis = 1)
+        self.df = self.df[self.df.columns[:-2]]
+        self.df = self.df.drop("CLIENTNUM", axis = 1)
 
         # # check NaN values
         # print(df[df.isnull()].count())
 
         # determine target and features
-        y = df["Attrition_Flag"].to_numpy()
-        X = df.drop("Attrition_Flag", axis = 1)
+        y = self.df["Attrition_Flag"].to_numpy()
+        X = self.df.drop("Attrition_Flag", axis = 1)
 
         # change target values into numericals
         y[y == 'Existing Customer'] = 1
@@ -33,15 +33,15 @@ class Processor:
             X = pd.concat([X, dummies], axis = 1)
             del X[item]
 
-        return X, y
+        return self.df
 
-    def visualize(self):
-        features = ['Customer_Age', 'Months_on_book', 'Total_Relationship_Count', 'Dependent_count',
-                    'Avg_Utilization_Ratio', 'Months_Inactive_12_mon', 'Total_Trans_Amt', 'Credit_Limit']
-        for feature in features:
-            fig, axes = plt.subplots(2, 1)
-            sns.boxplot(x=self.df[feature], showmeans=True, ax=axes[0]).set_title('Box Plot')
-            sns.histplot(x=self.df[feature], ax=axes[1]).set_title('Histogram')
-            plt.tight_layout()
-            # fig.suptitle('Analyzing ' + feature)
-            # stl.pyplot()
+    # def visualize(self):
+    #     features = ['Customer_Age', 'Months_on_book', 'Total_Relationship_Count', 'Dependent_count',
+    #                 'Avg_Utilization_Ratio', 'Months_Inactive_12_mon', 'Total_Trans_Amt', 'Credit_Limit']
+    #     for feature in features:
+    #         fig, axes = plt.subplots(2, 1)
+    #         sns.boxplot(x=self.df[feature], showmeans=True, ax=axes[0]).set_title('Box Plot')
+    #         sns.histplot(x=self.df[feature], ax=axes[1]).set_title('Histogram')
+    #         plt.tight_layout()
+    #         fig.suptitle('Analyzing ' + feature)
+    #         stl.pyplot()
