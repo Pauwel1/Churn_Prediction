@@ -21,22 +21,22 @@ class Predictor:
         decisionTree = DecisionTreeClassifier.fit(X_train, y_train)
         dtc = decisionTree.predict(X_test)
         dtAcc = recall_score(y_test, dtc, pos_label = 2)
-        results.loc["Decision Tree"] = dtAcc
+        results["Decision Tree"] = dtAcc
 
         randomForest = RandomForestClassifier.fit(X_train, y_train)
         rfc = randomForest.predict(X_test)
         rfAcc = recall_score(y_test, rfc, pos_label = 2)
-        results.loc["Random Forest"] = rfAcc
+        results["Random Forest"] = rfAcc
 
         gradientBoost = GradientBoostingClassifier.fit(X_train, y_train)
         gbc = gradientBoost.predict(X_test)
         gbAcc = recall_score(y_test, gbc, pos_label = 2)
-        results.loc["Gradient Boost"] = gbAcc
+        results["Gradient Boost"] = gbAcc
 
         adaBoost = AdaBoostClassifier.fit(X_train, y_train)
         abc = adaBoost.predict(X_test)
         abAcc = recall_score(y_test, abc, pos_label = 2)
-        results.loc["ADA Boost"] = abAcc
+        results["ADA Boost"] = abAcc
 
         print(results)
 
