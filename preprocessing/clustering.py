@@ -1,12 +1,15 @@
 import pandas as pd
 import numpy as np
-from preprocessing.datacleaner import dataCleaner
+from datacleaner import Cleaner
 from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 
-churn = pd.read_csv("assets/BankChurners.csv")
-X, y = dataCleaner(churn)
-print(X.columns)
+churn = Cleaner()
+churn = churn.dataCleaner()
+
+# determine target and features
+y = churn["Attrition_Flag"].to_numpy()
+X = churn.drop("Attrition_Flag", axis = 1)
 
 def kmClusterer(X):
     # Check how many clusters are desirable
