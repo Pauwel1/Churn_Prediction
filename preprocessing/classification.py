@@ -5,7 +5,6 @@ from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier,
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import recall_score
 from datacleaner import Cleaner
-from explainerdashboard import ClassifierExplainer, ExplainerDashboard
 
 def classifier(classifier, mdl):
   churn = Cleaner()
@@ -23,7 +22,7 @@ def classifier(classifier, mdl):
   X_bal, y_bal = balanced.fit_resample(X_train, y_train)
 
   # Try out different classifiers
-  model = classifier.fit(X_train, y_train)
+  model = classifier.fit(X_bal, y_bal)
 
   y_hat = model.predict(X_train)
   acc = recall_score(y_train, y_hat, pos_label = 0)

@@ -38,7 +38,7 @@ class Predictor:
         abAcc = recall_score(y_test, abc, pos_label = 2)
         results["ADA Boost"] = abAcc
 
-        print(results)
+        return X_train, X_test, y_train, y_test
 
     def prepare(self):
         # determine target and features

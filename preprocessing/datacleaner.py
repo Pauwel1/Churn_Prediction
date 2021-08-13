@@ -13,8 +13,9 @@ class Cleaner:
         churn = self.df[self.df.columns[:-2]]
         churn = churn.drop("CLIENTNUM", axis = 1)
 
-        # check NaN values
-        print(churn[churn.isnull()].count())
+        # # check NaN values
+        # print(churn[churn.isnull()].count())
+        # # there are none
 
         # drop columns that are too correlated
         # Create correlation matrix
@@ -30,7 +31,6 @@ class Cleaner:
         churn.loc[churn["Attrition_Flag"] == 'Existing Customer', "Attrition_Flag"] = 1
         churn.loc[churn["Attrition_Flag"] == "Attrited Customer", "Attrition_Flag"] = 0
         churn["Attrition_Flag"] = churn["Attrition_Flag"].astype(int)
-        print(churn["Attrition_Flag"].unique())
 
         # change string values to numeric
         churn.loc[churn['Education_Level'] == 'College', "Education_Level"] = 2
